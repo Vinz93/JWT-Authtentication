@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <title>Jwt Auth</title>
+</head>
+<body ng-controller="MainCtrl as vm">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h3 class="text-center">JWT Auth</h3>
+                <div class="show-random-user">
+                    <div class="form-container row">
+                        <form class="col-sm-6 col-sm-offset-3" ng-submit="login()" ng-hide="userLoged">
+                            <fieldset class="form-group">
+                                <label for="username">Username</label>
+                                <input class="form-control" type="text" name="username" ng-model="username">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="password">Password</label>
+                                <input class="form-control" type="password" name="password" ng-model="password">
+                            </fieldset>
+                            <input type="submit" name="name" value="login" class="btn btn-success">
+                        </form>
+                        <button type="button" name="logout" class="btn btn-default " ng-show="userLoged" ng-click="logout()">logout</button>
+                    </div>
+                    <br>
+                    <br>
+                    <div ng-show="userLoged">
+                        <div>
+                            <h3>Welcome  {{userLoged.name}}</h3>
+                        </div>
+                        <button type="button" ng-click="getRandomUser()" class="btn btn-primary">Get user</button>
+                        <br>
+                        <br>
+                        <pre ng-show="user">{{user | json}}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js" charset="utf-8"></script>
+    <script src="bower_components/angular/angular.js" charset="utf-8"></script>
+    <!--  App -->
+    <script src="app.js" charset="utf-8"></script>
+    <!-- Controllers -->
+    <script src="controllers/mainCtrl.js"></script>
+    <!-- Services -->
+    <script src="services/userFactory.js"></script>
+    <script src="services/authTokenFactory.js"></script>
+    <script src="services/randomUserFactory.js"></script>
+    <script src="services/authInterceptor.js"></script>
+</body>
+
+</html>
