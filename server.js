@@ -15,6 +15,8 @@ var app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
 // middleware que proteje las rutas con el token que viene en el header de las peticiones
+// tambien añade un campo al request (req.user) que contiene la informacion del token
+// descodificada.
 app.use(expressJwt({ secret: jwtSecret}).unless({path: ['/login']}));
 
 
