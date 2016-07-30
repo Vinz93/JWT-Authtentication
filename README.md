@@ -5,7 +5,7 @@
 
 Es un mecanismo de seguridad entre el cliente y el servidor, que permite identificar a los usuarios de manera unica
 , donde el servidor genera un token que el cliente deberá almacenar en su localStorage , luego este token será enviado en
-la cabezera de cada peticion http al servidor. donde este mediante un middleware descodificara el token y dará o no acceso
+la cabezera de cada peticion http al servidor, mediante un middleware se descodificará el token y se dará o no acceso
 a las rutas protegidas.
 
 ### Instalacion
@@ -14,13 +14,13 @@ npm install
 
 node server.js
   ```
-### creando el token
-se importa la libreria.
+###Creando el token
+Se importa la libreria.
 
 var jwt = require('jsonwebtoken');
 
-mediante un middleware se debe verificar si el usuario es valido,
-luego de verificar se genera el token. con la data y el secret.
+Mediante un middleware se debe verificar si el usuario es válido,
+luego de verificar se genera el token con la data y el secret,
 finalmente es enviado al cliente.
 
 
@@ -40,7 +40,9 @@ app.post("/login", authenticate, function (req, res) {
 
 ### Guardando el Token (localStorage)
 
-	.all() gets all the requests in the route, you can handle every request and response in this function.
+ $window.localStorage permite alamacenar en el localStorage,
+ se almacena justo despues de que se recibe la respuesta del servidor.
+
 
 ```js
 
@@ -84,8 +86,8 @@ function login(username, password) {
 ### Interceptor al $httpProvider
 
 Ahora se debe enviar el token en la cabezera de cada petición,
-Primero se creamos el Interceptor como un factory, se verifica si hay un token y se coloca
-en la cabezera (Authorization). ese necesario colocar el 'bearer ' antes del token.
+primero creamos el Interceptor como un factory, se verifica si hay un token y se coloca
+en la cabezera (Authorization), ese necesario colocar el 'bearer ' antes del token.
 
 ```js
 app.factory('AuthInterceptor',function (AuthTokenFactory) {
@@ -116,7 +118,7 @@ var app = angular.module('app', [] , function config($httpProvider){
 ```
 ### Descodificación del token
 
-Con el middleware 'express-jwt' , podemos proteger las rutas , este se encargara de descodificar el token y verificar si es valido (autorizado) para acceder a las rutas prohibidas, ademas añade un campo a la petición (request.user) el cual contendra la información del token descodificada.
+Con el middleware 'express-jwt' , podemos proteger las rutas, este se encargara de descodificar el token y verificar si es  válido (autorizado) para acceder a las rutas protegigas, ademas añade un campo a la petición (request.user) el cual contendrá la información del token descodificada.
 
 .unless contiene las rutas que no estarán protegidas.
 
